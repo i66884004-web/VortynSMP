@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vortyn SMP | Survival Minecraft SMP</title>
+<meta name="description" content="Vortyn SMP — A survival Minecraft SMP built for competitive, fair, and community-driven gameplay.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    background: #050507;
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+}
+/* =========================
+   BACKGROUND
+========================= */
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -5;
+    background:
+        radial-gradient(circle at 50% 20%, #3b0b5f 0%, transparent 35%),
+        radial-gradient(circle at 10% 80%, #19002b 0%, transparent 30%),
+        #050507;
+}
+.background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(115deg, transparent 40%, rgba(170, 0, 255, .05) 50%, transparent 60%);
+    animation: sweep 8s linear infinite;
+}
+@keyframes sweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+/* PARTICLES */
+.particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    overflow: hidden;
+}
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #a855f7;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #a855f7;
+    animation: float linear infinite;
+    opacity: .5;
+}
+@keyframes float {
+    from {
+        transform: translateY(110vh);
+    }
+    to {
+        transform: translateY(-20vh);
+    }
+}
+/* =========================
+   NAVBAR
+========================= */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(5, 5, 7, .75);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(168, 85, 247, .15);
+}
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    letter-spacing: 3px;
+    font-size: 21px;
+}
+.logo span {
+    color: #a855f7;
+    text-shadow: 0 0 20px #a855f7;
+}
+.nav-links {
+    display: flex;
+    gap: 28px;
+}
+.nav-links a {
+    color: #ccc;
+    text-decoration: none;
+    font-weight: 600;
+    transition: .3s;
+}
+.nav-links a:hover {
+    color: #c084fc;
+    text-shadow: 0 0 15px #a855f7;
+}
+.discord-small {
+    padding: 9px 16px;
+    border: 1px solid #9333ea;
+    border-radius: 8px;
+    color: white !important;
+}
+/* =========================
+   HERO
+========================= */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 20px 80px;
+    position: relative;
+}
+.hero-content {
+    max-width: 950px;
+    animation: heroIn 1.2s ease forwards;
+}
+@keyframes heroIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid rgba(168,85,247,.5);
+    border-radius: 100px;
+    color: #c084fc;
+    background: rgba(168,85,247,.08);
+    margin-bottom: 25px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(48px, 9vw, 105px);
+    line-height: .95;
+    letter-spacing: 5px;
+    background: linear-gradient(
+        180deg,
+        #ffffff,
+        #d8b4fe 45%,
+        #9333ea
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(168,85,247,.35));
+}
+.hero h1 span {
+    color: #a855f7;
+}
+.subtitle {
+    max-width: 720px;
+    margin: 28px auto;
+    color: #b8b8c2;
+    font-size: 20px;
+    line-height: 1.6;
+}
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 35px;
+}
+.btn {
+    border: none;
+    text-decoration: none;
+    color: white;
+    padding: 14px 25px;
+    border-radius: 9px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .3s;
+}
+.btn-purple {
+    background: linear-gradient(135deg, #7e22ce, #a855f7);
+    box-shadow: 0 0 25px rgba(168,85,247,.3);
+}
+.btn-purple:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 40px rgba(168,85,247,.55);
+}
+.btn-outline {
+    border: 1px solid #6b21a8;
+    background: rgba(168,85,247,.04);
+}
+.btn-outline:hover {
+    background: rgba(168,85,247,.15);
+    transform: translateY(-4px);
+}
+/* =========================
+   SERVER CARD
+========================= */
+.server-card {
+    margin: 50px auto 0;
+    max-width: 620px;
+    padding: 22px;
+    border-radius: 15px;
+    background: rgba(15, 10, 20, .75);
+    border: 1px solid rgba(168,85,247,.3);
+    box-shadow:
+        0 0 50px rgba(126,34,206,.12),
+        inset 0 0 30px rgba(168,85,247,.03);
+    backdrop-filter: blur(15px);
+}
+.server-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    color: #c4b5fd;
+    margin-bottom: 10px;
+}
+.status-dot {
+    width: 9px;
+    height: 9px;
+    background: #a855f7;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #a855f7;
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    50% {
+        opacity: .3;
+        transform: scale(.7);
+    }
+}
+.ip {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(18px, 4vw, 27px);
+    letter-spacing: 2px;
+    color: white;
+    margin-bottom: 15px;
+}
+/* =========================
+   SECTIONS
+========================= */
+section {
+    padding: 100px 7%;
+}
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    font-size: clamp(30px, 5vw, 52px);
+    margin-bottom: 15px;
+}
+.section-title span {
+    color: #a855f7;
+}
+.section-desc {
+    text-align: center;
+    color: #999;
+    max-width: 700px;
+    margin: 0 auto 50px;
+    font-size: 18px;
+}
+/* =========================
+   STORY
+========================= */
+.story-grid {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.card {
+    padding: 30px;
+    background: linear-gradient(
+        145deg,
+        rgba(168,85,247,.08),
+        rgba(10,10,12,.8)
+    );
+    border: 1px solid rgba(168,85,247,.18);
+    border-radius: 16px;
+    transition: .4s;
+}
+.card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(168,85,247,.55);
+    box-shadow: 0 15px 50px rgba(126,34,206,.18);
+}
+.card-icon {
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+.card h3 {
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 10px;
+}
+.card p {
+    color: #aaa;
+    line-height: 1.6;
+}
+/* =========================
+   LIVES
+========================= */
+.lives {
+    max-width: 950px;
+    margin: auto;
+    text-align: center;
+}
+.life-display {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin: 40px 0;
+}
+.heart {
+    font-size: 55px;
+    filter: drop-shadow(0 0 15px #9333ea);
+    animation: heartFloat 2s ease-in-out infinite;
+}
+.heart:nth-child(2) {
+    animation-delay: .3s;
+}
+@keyframes heartFloat {
+    50% {
+        transform: translateY(-10px) scale(1.08);
+    }
+}
+.lives p {
+    max-width: 650px;
+    margin: auto;
+    color: #aaa;
+    font-size: 18px;
+    line-height: 1.7;
+}
+/* =========================
+   RULES
+========================= */
+.rules-container {
+    max-width: 1000px;
+    margin: auto;
+}
+.rule {
+    display: flex;
+    gap: 18px;
+    padding: 20px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(168,85,247,.1);
+    border-radius: 10px;
+    transition: .3s;
+}
+.rule:hover {
+    background: rgba(168,85,247,.07);
+    border-color: rgba(168,85,247,.3);
+    transform: translateX(5px);
+}
+.rule-number {
+    min-width: 35px;
+    height: 35px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: rgba(168,85,247,.15);
+    color: #c084fc;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+}
+.rule h3 {
+    margin-bottom: 4px;
+}
+.rule p {
+    color: #999;
+    line-height: 1.5;
+}
+.moderation {
+    margin-top: 30px;
+    padding: 25px;
+    border: 1px solid rgba(168,85,247,.3);
+    background: rgba(168,85,247,.06);
+    border-radius: 14px;
+}
+.moderation h3 {
+    color: #c084fc;
+    margin-bottom: 10px;
+}
+.moderation p {
+    color: #aaa;
+    line-height: 1.6;
+}
+/* =========================
+   DISCORD
+========================= */
+.discord-section {
+    text-align: center;
+}
+.discord-box {
+    max-width: 750px;
+    margin: auto;
+    padding: 60px 30px;
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at center, rgba(126,34,206,.22), transparent 65%),
+        rgba(10,8,12,.8);
+    border: 1px solid rgba(168,85,247,.3);
+}
+.discord-box h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+.discord-box p {
+    color: #999;
+    margin-bottom: 30px;
+}
+/* =========================
+   FOOTER
+========================= */
+footer {
+    padding: 35px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(168,85,247,.12);
+    color: #666;
+}
+footer strong {
+    color: #a855f7;
+}
+/* =========================
+   SCROLL ANIMATION
+========================= */
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: .8s ease;
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* =========================
+   MOBILE
+========================= */
+@media(max-width: 750px) {
+    nav {
+        padding: 15px 20px;
+    }
+    .nav-links {
+        display: none;
+    }
+    .story-grid {
+        grid-template-columns: 1fr;
+    }
+    section {
+        padding: 75px 20px;
+    }
+    .hero {
+        padding-top: 120px;
+    }
+    .hero h1 {
+        letter-spacing: 2px;
+    }
+    .subtitle {
+        font-size: 17px;
+    }
+    .life-display {
+        gap: 10px;
+    }
+    .heart {
+        font-size: 45px;
+    }
+}
+</style>
+</head>
+<body>
+<div class="background"></div>
+<div class="particles" id="particles"></div>
+<!-- NAV -->
+<nav>
+    <div class="logo">
+        VORTYN<span>SMP</span>
+    </div>
+    <div class="nav-links">
+        <a href="#story">About</a>
+        <a href="#rules">Rules</a>
+        <a href="#rules">Rules</a>
+        <a href="#discord">Discord</a>
+    </div>
+    <a class="discord-small"
+       href="https://discord.gg/tG2ur5zrNa"
+       target="_blank">
+        Discord
+    </a>
+</nav>
+<!-- HERO -->
+<header class="hero">
+    <div class="hero-content">
+        <div class="badge">
+            ✦ A Survival Minecraft SMP
+        </div>
+        <h1>
+            VORTYN<br>
+            <span>SMP</span>
+        </h1>
+        <p class="subtitle">
+            Build, fight, survive, and make your mark.
+            Vortyn SMP is a survival server with competitive rules and a community-first experience.
+        </p>
+        <div class="buttons">
+            <a href="https://discord.gg/tG2ur5zrNa"
+               target="_blank"
+               class="btn btn-purple">
+                Join Discord
+            </a>
+            <a href="#rules"
+               class="btn btn-outline">
+                View Rules
+            </a>
+        </div>
+        <div class="server-card">
+            <div class="server-status">
+                <div class="status-dot"></div>
+                Server Address
+            </div>
+            <div class="ip" id="serverIP">
+                vortyn.smp.quest
+            </div>
+            <button class="btn btn-purple"
+                    onclick="copyIP()"
+                    id="copyButton">
+                Copy IP
+            </button>
+        </div>
+    </div>
+</header>
+<!-- STORY -->
+<section id="story">
+    <div class="reveal">
+        <h2 class="section-title">
+            THE <span>SERVER</span>
+        </h2>
+        <p class="section-desc">
+            Vortyn SMP is a survival Minecraft server where players can build,
+            explore, fight, trade, and create their own stories while following
+            a clear set of competitive gameplay rules.
+        </p>
+    </div>
+    <div class="story-grid">
+        <div class="card reveal">
+            <div class="card-icon">🌎</div>
+            <h3>Survival</h3>
+            <p>
+                Build your base, gather resources, explore the world, and
+                survive alongside the rest of the Vortyn community.
+            </p>
+        </div>
+        <div class="card reveal">
+            <div class="card-icon">⚔️</div>
+            <h3>Fair Combat</h3>
+            <p>
+                PvP is part of the server, with rules designed to keep fights
+                competitive without unfair exploits or combat escapes.
+            </p>
+        </div>
+        <div class="card reveal">
+            <div class="card-icon">👥</div>
+            <h3>Team Up</h3>
+            <p>
+                Teams can have up to four players. Coordinate with your team,
+                compete with other groups, and make your own path on Vortyn.
+            </p>
+        </div>
+    </div>
+</section>
+<!-- RULES -->
+<section id="rules">
+    <div class="reveal">
+        <h2 class="section-title">
+            SERVER <span>RULES</span>
+        </h2>
+        <p class="section-desc">
+            Follow the rules, respect the community, and keep Vortyn SMP fun for everyone.
+            Discord rules apply to Minecraft too.
+        </p>
+    </div>
+    <div class="rules-container">
+
+        <div class="rule reveal">
+            <div class="rule-number">01</div>
+            <div>
+                <h3>Respect & Common Sense</h3>
+                <p>Keep the community respectful. Flaming, harassment, slurs, targeted hate speech, and persistent toxicity are not tolerated. Use common sense.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">02</div>
+            <div>
+                <h3>No Spam or Annoying Behavior</h3>
+                <p>Do not spam text, emojis, caps, commands, or unnecessary mentions. Keep discussions in the appropriate channels.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">03</div>
+            <div>
+                <h3>No Advertising or Unapproved Self-Promotion</h3>
+                <p>Do not advertise other Minecraft servers, Discord communities, or personal social media or streams outside designated areas. Advertising through DMs is prohibited.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">04</div>
+            <div>
+                <h3>Keep Content Appropriate</h3>
+                <p>No NSFW, explicit, graphic, or illegal content anywhere on the Discord or Minecraft community. This includes avatars, statuses, banners, and nicknames.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">05</div>
+            <div>
+                <h3>Respect Staff</h3>
+                <p>Follow staff directions. If you believe a staff decision was unfair, use a ticket or the appropriate private process instead of arguing publicly.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">06</div>
+            <div>
+                <h3>No Exploiting, Hacking, or Unfair Advantages</h3>
+                <p>Do not use hacks, cheats, exploits, or other unfair advantages. Do not abuse plugins, rules, or admin powers.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">07</div>
+            <div>
+                <h3>No Danger or Combat Logging</h3>
+                <p>Do not combat log or intentionally leave a dangerous situation to avoid its consequences. If you are kicked from something during combat, you must log back on.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">08</div>
+            <div>
+                <h3>No Water Stalling</h3>
+                <p>Do not use water stalling to intentionally delay or avoid combat.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">09</div>
+            <div>
+                <h3>No Stasis Chambers</h3>
+                <p>Stasis chambers are not allowed.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">10</div>
+            <div>
+                <h3>No Teleporting Away During Combat</h3>
+                <p>Do not use commands or other teleportation methods to escape a fight.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">11</div>
+            <div>
+                <h3>No Alts</h3>
+                <p>Alternative accounts are not allowed on either Minecraft or Discord.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">12</div>
+            <div>
+                <h3>No Explosives in Combat</h3>
+                <p>Do not use explosives during combat, including explosive traps.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">13</div>
+            <div>
+                <h3>No Pearls in Combat</h3>
+                <p>Do not use Ender Pearls during combat.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">14</div>
+            <div>
+                <h3>No Elytras, Tridents, or Spears to Escape</h3>
+                <p>Do not use elytras, tridents, or spears to run away from an active fight.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">15</div>
+            <div>
+                <h3>Maximum Team Size: 4</h3>
+                <p>Teams are limited to four players. Alliances between teams are not allowed.</p>
+            </div>
+        </div>
+
+        <div class="rule reveal">
+            <div class="rule-number">16</div>
+            <div>
+                <h3>Discord Rules Apply to Minecraft</h3>
+                <p>The Discord rules also apply to player behavior in Minecraft and across the Vortyn SMP community.</p>
+            </div>
+        </div>
+
+        <div class="moderation reveal">
+            <h3>⚠️ Moderation</h3>
+            <p>
+                Breaking the rules may result in a warning, timeout, kick, or ban,
+                depending on the severity and frequency of the offense. Staff may
+                take action against behavior that negatively affects the community,
+                even if a specific situation is not listed word-for-word above.
+            </p>
+        </div>
+    </div>
+</section>
+<!-- DISCORD -->
+<section id="discord" class="discord-section">
+    <div class="discord-box reveal">
+        <h2>JOIN <span>VORTYN</span></h2>
+        <p>
+            Join the Discord for server information, announcements,
+            community updates, and everything Vortyn SMP.
+        </p>
+        <a href="https://discord.gg/tG2ur5zrNa"
+           target="_blank"
+           class="btn btn-purple">
+            💬 Join the Discord
+        </a>
+    </div>
+</section>
+<!-- FOOTER -->
+<footer>
+    <p>
+        © 2026 <strong>Withered SMP</strong> ·
+        A scripted Minecraft SMP
+    </p>
+</footer>
+<script>
+/* =========================
+   PARTICLES
+========================= */
+const particleContainer =
+    document.getElementById("particles");
+for (let i = 0; i < 70; i++) {
+    const particle =
+        document.createElement("div");
+    particle.className = "particle";
+    particle.style.left =
+        Math.random() * 100 + "%";
+    particle.style.animationDuration =
+        (Math.random() * 10 + 7) + "s";
+    particle.style.animationDelay =
+        (Math.random() * 10) + "s";
+    particle.style.opacity =
+        Math.random() * .7;
+    particleContainer.appendChild(particle);
+}
+/* =========================
+   COPY SERVER IP
+========================= */
+function copyIP() {
+    const ip =
+        "vortynsmp.serveminecraft.net";
+    navigator.clipboard.writeText(ip);
+    const button =
+        document.getElementById("copyButton");
+    button.innerText = "✓ IP Copied!";
+    setTimeout(() => {
+        button.innerText = "Copy IP";
+    }, 1800);
+}
+/* =========================
+   SCROLL REVEAL
+========================= */
+const revealElements =
+    document.querySelectorAll(".reveal");
+const observer =
+    new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+            });
+        },
+        {
+            threshold: .12
+        }
+    );
+revealElements.forEach(element => {
+    observer.observe(element);
+});
+/* =========================
+   PARALLAX EFFECT
+========================= */
+window.addEventListener("mousemove", event => {
+    const x =
+        (event.clientX / window.innerWidth - .5) * 15;
+    const y =
+        (event.clientY / window.innerHeight - .5) * 15;
+    document.querySelector(".background").style.transform =
+        `translate(${x}px, ${y}px)`;
+});
+</script>
+</body>
+</html>
